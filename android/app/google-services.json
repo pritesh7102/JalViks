@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "306896513056",
+    "project_id": "jalviks",
+    "storage_bucket": "jalviks.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:306896513056:android:e23e7dbbed20d78fab7445",
+        "android_client_info": {
+          "package_name": "com.example.jalviks"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYiCpoVmNXOvki9JPjJdMp5BgAx1MZtC4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
