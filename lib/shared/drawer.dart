@@ -1,4 +1,10 @@
+import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/material.dart";
+import "package:jalviks/pages/about.dart";
+import "package:jalviks/pages/location.dart";
+import "package:jalviks/pages/team.dart";
+import "package:jalviks/pages/user.dart";
+import "package:jalviks/pages/weather.dart";
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
@@ -11,7 +17,7 @@ class MyDrawer extends StatelessWidget {
         children: [
           const DrawerHeader(
             decoration: BoxDecoration(
-              color: Colors.purple,
+              color: Colors.green,
             ),
             child: Text(
               'User_name', // I have to change the code here such that it shows the name of the user
@@ -33,6 +39,10 @@ class MyDrawer extends StatelessWidget {
             title: const Text('User Info'),
             onTap: () {
               // Handle navigation to user info screen
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const UserPage()),
+                );
             },
           ),
           ListTile(
@@ -40,6 +50,10 @@ class MyDrawer extends StatelessWidget {
             title: const Text('Location'),
             onTap: () {
               // Handle navigation to user location screen
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const location()),
+                );
             },
           ),
           ListTile(
@@ -47,6 +61,10 @@ class MyDrawer extends StatelessWidget {
             title: const Text('Weather'),
             onTap: () {
               // Handle navigation to user weather screen
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Weather()),
+                );
             },
           ),
           ListTile(
@@ -54,6 +72,10 @@ class MyDrawer extends StatelessWidget {
             title: const Text('About JalViks'),
             onTap: () {
               // Handle navigation to About screen
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const About()),
+                );
             },
           ),
           ListTile(
@@ -61,6 +83,10 @@ class MyDrawer extends StatelessWidget {
             title: const Text('Our Team'),
             onTap: () {
               // Handle navigation to Team screen
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Team()),
+                );
             },
           ),
           // Add more list tiles for additional items in the drawer

@@ -33,9 +33,9 @@ class _RegisterState extends State<Register> {
     return loading
         ? const Loading()
         : Scaffold(
-            backgroundColor: Colors.purple[100],
+            backgroundColor: Colors.green[100],
             appBar: AppBar(
-              backgroundColor: Colors.purple[400],
+              backgroundColor: Colors.green[400],
               elevation: 0.0,
               title: const Text('Sign Up On JalViks'),
               actions: <Widget>[
@@ -70,16 +70,20 @@ class _RegisterState extends State<Register> {
                     ),
                     const SizedBox(height: 20.0),
                     TextFormField(
-                      decoration:
-                          textInputDecorator.copyWith(hintText: 'Password',
-                          suffixIcon: GestureDetector(
-                                    onTap: () {
-                                      _togglevisibility();
-                                    },
-                                    child: Icon(
-                                      _showPassword ? Icons.visibility : Icons
-                                          .visibility_off, color: Colors.black,),
-                                  ),),
+                      decoration: textInputDecorator.copyWith(
+                        hintText: 'Password',
+                        suffixIcon: GestureDetector(
+                          onTap: () {
+                            _togglevisibility();
+                          },
+                          child: Icon(
+                            _showPassword
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
                       obscureText: !_showPassword,
                       validator: (val) => val!.length < 6
                           ? 'Enter an Password with atleast 6 characters'
@@ -106,6 +110,9 @@ class _RegisterState extends State<Register> {
                         },
                         child: const Text(
                           'Register',
+                          style: TextStyle(
+                            color: Colors.green, // Change the color here
+                          ),
                         )),
                     const SizedBox(height: 12.0),
                     Text(
