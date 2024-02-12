@@ -1,5 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:jalviks/models/info.dart';
 import 'package:jalviks/pages/notifications.dart';
 import 'package:jalviks/screens/home/userInfo.dart';
 import 'package:jalviks/services/auth.dart';
@@ -14,7 +14,10 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return StreamProvider<List<Informaiton>?>.value(
+      value: DatabaseService().info,
+      initialData: null,
+      child: Scaffold(
         backgroundColor: Colors.green[100],
         appBar: AppBar(
           title: const Text('JalViks'),
@@ -29,7 +32,8 @@ class Home extends StatelessWidget {
                 // Example: Open a notifications screen or show a notification
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const Notifications()),
+                  MaterialPageRoute(
+                      builder: (context) => const Notifications()),
                 );
               },
             ),
@@ -46,28 +50,27 @@ class Home extends StatelessWidget {
           ],
         ),
         // body: userList(),
-
         body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            // Replace 'assets/your_image.jpg' with the path to your image asset
-            Image.asset(
-              'jalviks_logo.jpg',
-              width: 200, // Adjust the width as needed
-              height: 200, // Adjust the height as needed
-              fit: BoxFit.cover,
-            ),
-            const SizedBox(height: 16),
-            const Text(
-              'JalViks',
-              style: TextStyle(fontSize: 20),
-            ),
-          ],
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              // Replace 'assets/your_image.jpg' with the path to your image asset
+              Image.asset(
+                'jalviks_logo.jpg',
+                width: 200, // Adjust the width as needed
+                height: 200, // Adjust the height as needed
+                fit: BoxFit.cover,
+              ),
+              const SizedBox(height: 16),
+              const Text(
+                'JalViks',
+                style: TextStyle(fontSize: 20),
+              ),
+            ],
+          ),
         ),
-      ),
-
         drawer: const MyDrawer(),
-      );
+      ),
+    );
   }
 }

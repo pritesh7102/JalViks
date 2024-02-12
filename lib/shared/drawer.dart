@@ -2,12 +2,22 @@ import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/material.dart";
 import "package:jalviks/pages/about.dart";
 import "package:jalviks/pages/location.dart";
+import "package:jalviks/pages/survey.dart";
 import "package:jalviks/pages/team.dart";
 import "package:jalviks/pages/user.dart";
 import "package:jalviks/pages/weather.dart";
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
+
+  Future<Map<String, dynamic>> getUserData() async {
+    var document = await FirebaseFirestore.instance
+        .collection('user_info')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+    return document.data() as Map<String, dynamic>;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,17 +25,58 @@ class MyDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          const DrawerHeader(
-            decoration: BoxDecoration(
-              color: Colors.green,
-            ),
-            child: Text(
-              'User_name', // I have to change the code here such that it shows the name of the user
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 20,
-              ),
-            ),
+          FutureBuilder<Map<String, dynamic>>(
+            future: getUserData(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                if (snapshot.hasData) {
+                  return DrawerHeader(
+                    decoration: const BoxDecoration(
+                      color: Colors.green,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '${snapshot.data!['name']}', // Display user's name
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                          ),
+                        ),
+                        Text(
+                          '${snapshot.data!['city']}', // Display user's city
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                } else {
+                  return const DrawerHeader(
+                    decoration: BoxDecoration(
+                      color: Colors.green,
+                    ),
+                    child: Text(
+                      'No data',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                      ),
+                    ),
+                  );
+                }
+              } else {
+                return const DrawerHeader(
+                  decoration: BoxDecoration(
+                    color: Colors.green,
+                  ),
+                  child: CircularProgressIndicator(),
+                );
+              }
+            },
           ),
           ListTile(
             leading: const Icon(Icons.home),
@@ -41,7 +92,7 @@ class MyDrawer extends StatelessWidget {
               // Handle navigation to user info screen
               Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const UserPage()),
+                  MaterialPageRoute(builder: (context) => const ShowData()),
                 );
             },
           ),
@@ -52,7 +103,7 @@ class MyDrawer extends StatelessWidget {
               // Handle navigation to user location screen
               Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const location()),
+                  MaterialPageRoute(builder: (context) => LocationPage()),
                 );
             },
           ),
@@ -67,6 +118,18 @@ class MyDrawer extends StatelessWidget {
                 );
             },
           ),
+          ListTile(
+            leading: const Icon(Icons.assignment),
+            title: const Text('Survey Form'),
+            onTap: () {
+              // Handle navigation to Survey Form screen
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SurveyPage()),
+                );
+            },
+          ),
+          
           ListTile(
             leading: const Icon(Icons.info_outline),
             title: const Text('About JalViks'),
